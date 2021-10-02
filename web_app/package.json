@@ -4,19 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "devStart": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/reagantrac/cits5503-group4-project.git"
-  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/reagantrac/cits5503-group4-project/issues"
-  },
-  "homepage": "https://github.com/reagantrac/cits5503-group4-project#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }
