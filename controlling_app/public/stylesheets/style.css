@@ -1,19 +1,16 @@
 body {
+    margin: 0px;
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  }
+    height: 100vh;
+}
   
-  a {
+a {
     color: #00B7FF;
-  }
+}
   
-  .wrapper {
-    margin-top: 80px;
-    margin-bottom: 20px;
-  }
-  
+
   .form-signin {
-    max-width: 420px;
     padding: 30px 38px 66px;
     margin: 0 auto;
     background-color: #eee;
@@ -43,4 +40,3 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
-  

@@ -1,0 +1,12 @@
+body {
+    background: repeating-radial-gradient(
+        from 3deg at 25% 25%,
+        lightblue, lightcyan 2deg 5deg, lightgreen);
+    height: 100vh;
+}
+
+.nav-item {
+    flex-grow: 1;
+    text-align: center;
+    font-size: large;
+}
