@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
-const methodOverride = require('method-override')
+// const methodOverride = require('method-override')
 
 const initializePassport = require('./passport-config')
 initializePassport(
@@ -29,59 +29,57 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-app.use(methodOverride('_method'))
+// app.use(methodOverride('_method'))
 
-app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index.ejs', { name: req.user.name })
+app.use(express.static(__dirname + '/public/'));
+
+app.get('/', (req, res) => {
+    res.render('index.ejs');
 })
 
-app.get('/login', checkNotAuthenticated, (req, res) => {
+app.get('/home', ifLoginState("logged_in"), (req, res) => {
+  res.render('home.ejs', { name: req.user.name })
+})
+
+app.get('/login', ifLoginState("logged_out"), (req, res) => {
   res.render('login.ejs')
 })
 
-app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
-  successRedirect: '/',
+app.post('/login', ifLoginState("logged_out"), passport.authenticate('local', {
+  successRedirect: '/home',
   failureRedirect: '/login',
   failureFlash: true
 }))
 
-app.get('/register', checkNotAuthenticated, (req, res) => {
-  res.render('register.ejs')
-})
-
-app.post('/register', checkNotAuthenticated, async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+app.post('/register', ifLoginState("logged_out"), (req, res) => {
+    const hashedPassword = bcrypt.hashSync(req.body.password, 10)
     users.push({
       id: Date.now().toString(),
       name: req.body.name,
       email: req.body.email,
       password: hashedPassword
     })
+    console.log(users)
     res.redirect('/login')
-  } catch {
-    res.redirect('/register')
-  }
 })
 
-app.delete('/logout', (req, res) => {
+app.post('/logout', (req, res) => {
   req.logOut()
   res.redirect('/login')
 })
 
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next()
-  }
-
-  res.redirect('/login')
-}
-
-function checkNotAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return res.redirect('/')
-  }
-  next()
+function ifLoginState(state) {
+    return function(req, res, next) {
+        if (state === "logged_in") {
+            if (req.isAuthenticated()) return next();
+            else return res.redirect('/login')
+        }
+        else if (state === "logged_out") {
+            if (!req.isAuthenticated()) return next();
+            else return res.redirect('/home')
+        }
+        return res.redirect('/')
+    }
 }
 
 app.listen(3000)
