@@ -59,7 +59,6 @@ app.post('/register', ifLoginState("logged_out"), (req, res) => {
       email: req.body.email,
       password: hashedPassword
     })
-    console.log(users)
     res.redirect('/login')
 })
 

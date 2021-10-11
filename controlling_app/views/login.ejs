@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Login Example</title>
+    <title>Login Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,28 +23,27 @@
             $(form2+"-tab").addClass("active")
             $(form1+"-tab").removeClass("active")
         }
-        $(window).on('load', function() {
-            switchForm('#register-form', '#login-form')
-        });
     </script>
 </head>
 <body>
     <div class="container">
-        <div class="wrapper">
+        <h1 class="display-1">Welcome</h1>
+        <p class="lead">Please login or register to access your devices.</p>
+        <div class="form-wrapper">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a id="login-form-tab" class="nav-link active" onclick="switchForm('#register-form', '#login-form')">Login</a>
+                    <a id="login-form-tab" class="btn nav-link active" onclick="switchForm('#register-form', '#login-form')">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a id="register-form-tab" class="nav-link" onclick="switchForm('#login-form', '#register-form')">Register</a>
+                    <a id="register-form-tab" class="btn nav-link" onclick="switchForm('#login-form', '#register-form')">Register</a>
                 </li>
             </ul>
-            <form id="login-form" action="/login" method="post" name="login_form" class="form-signin">
+            <form id="login-form" action="/login" method="post" name="login_form" class="form">
                 <input type="email" class="form-control" name="email" placeholder="Email Address" required="" autofocus="" />
                 <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
                 <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Login</button>
             </form>
-            <form id="register-form" action="/register" method="post" name="register_form" class="form-signin" style="display: none">
+            <form id="register-form" action="/register" method="post" name="register_form" class="form" style="display: none">
                 <input type="text" class="form-control" name="name" placeholder="Name" required="" autofocus="" />
                 <input type="email" class="form-control" name="email" placeholder="Email Address" required="" autofocus="" />
                 <input type="password" class="form-control" name="password" placeholder="Password" required=""/>
