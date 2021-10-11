@@ -1,42 +1,48 @@
-body {
+* {
     margin: 0px;
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    height: 100vh;
+    padding: 0px;
 }
-  
-a {
-    color: #00B7FF;
-}
-  
 
-  .form-signin {
-    padding: 30px 38px 66px;
-    margin: 0 auto;
-    background-color: #eee;
-    border: 3px dotted rgba(0,0,0,0.1);
-  }
-  
-  .form-signin-heading {
-    text-align:center;
-    margin-bottom: 30px;
-  }
-  
-  .form-control {
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-  }
-  
-  input[type="text"] {
-    margin-bottom: 0px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  
-  input[type="password"] {
-    margin-bottom: 20px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-item {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.nav-link {
+    font-size: large;
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    width: min(600px, 90%);
+    height: min(400px, 50%);
+}
+
+.form {
+    border: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-grow: 1;
+}
+
+.nav-tabs ~ .form {
+    border-top: none;
+}
+
+.form-control {
+    width: 90%;
+    height: 2em;
+    font-size: large;
+}
