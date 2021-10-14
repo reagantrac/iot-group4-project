@@ -31,7 +31,8 @@ $button.addEventListener('click', function() {
   })(window, document)
 
   function openForm() {
-    document.getElementById("newroom").style.display="none";
+    console.log(1)
+    document.getElementById("newroom").style.display="block";
   }
   
   function closeForm() {
