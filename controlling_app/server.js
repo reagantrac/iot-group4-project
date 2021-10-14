@@ -37,13 +37,23 @@ app.get('/', (req, res) => {
     res.render('index.ejs');
 })
 
-app.get('/home', ifLoginState("logged_in"), (req, res) => {
-  res.render('home.ejs', { name: req.user.name })
+// app.get('/home', ifLoginState("logged_in"), (req, res) => {
+//   res.render('home.ejs', { name: req.user.name })
+// })
+
+app.get('/home', (req, res) => {
+  res.render('home.ejs')
 })
+
 
 app.get('/login', ifLoginState("logged_out"), (req, res) => {
   res.render('login.ejs')
 })
+
+app.get('/info', ifLoginState("logged_in"), (req, res) => {
+  res.render('info.ejs')
+})
+
 
 app.post('/login', ifLoginState("logged_out"), passport.authenticate('local', {
   successRedirect: '/home',

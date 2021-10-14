@@ -1,0 +1,60 @@
+<% if (messages.error) { %>
+    <%= messages.error %>
+  <% } %>
+  
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      <title>Dashboard</title>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+      <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Roboto:400"/>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+      <link rel="stylesheet" href="stylesheets/style.css">
+      <link rel='stylesheet' href='stylesheets/home.css'>
+      <script src="main.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  
+  <body>
+    <div class="container">
+        <div>
+            <h2>
+                Room Title
+            </h2>
+        </div>
+        <div style="color: white;">
+            <p style="font-style: italic;">No. of person in the room</p>
+            <h1 class="numeral">3</h1>
+        </div>
+        <div style="color: white;" class="row align-items-start">
+            <p>Status:</p>
+            <div class="col">
+                <input type="radio" id="light_on" name="Status" value="30">
+                <label for="light_on">ON</label>
+            </div> 
+            <div class="col">
+                <input type="radio" id="light_off" name="Status" value="60">
+                <label for="light_off">OFF</label> 
+            </div> 
+            <div class="col">
+                <input type="radio" id="auto" name="Status" value="100">
+                <label for="auto">AUTO</label><br><br>
+            </div>
+        </div>
+        <div class="control control--switch">
+            <label for="">Engergy Saving mode</label>
+            <input type="checkbox" class="switch" id="mode-switch" name="mode-switch" />
+            <label for="mode-switch"></label>
+        </div>
+        <div class="control control--range">
+            <label for="">Brightness</label>
+            <input type="range" name="brightness" min="50" max="150" value="100" step="1">
+        </div>
+        
+    </div>
+  </body>
+  </html>
