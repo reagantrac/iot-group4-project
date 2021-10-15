@@ -34,7 +34,7 @@
         <a class="btn btn-block" href="/info">Room1</a>
         <a class="btn btn-block" href="/info">Room2</a>
         <!-- <a class="btn btn-block" href="#">Add room</a> -->
-        <a class="btn btn-block" onclick="openForm()">add room</a>
+        <a class="btn btn-block" onclick="openForm()">add rooms</a>
         <div class="form-popup" id="newroom">
           <form class="form-container">
             <h1>name</h1>
@@ -42,7 +42,7 @@
             <label for="roomID"><b>roomID</b></label>
             <input type="text" placeholder="Enter roomID" name="roomID" required>
 
-            <button type="submit" class="btn">Submit</button>
+            <a button type="submit" class="btn" href="/info">Submit</a>
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
           </form>
         </div>
@@ -51,5 +51,19 @@
       <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/157293/light_on.jpg" width="0" height="0" alt="" /> -->
     
     </div>
+    <script>
+      function openForm() {
+      console.log(1)
+      document.getElementById("newroom").style.display="block";
+    }
+    
+    function closeForm() {
+      document.getElementById("newroom").style.display="none";
+
+    }
+    </script>
+
+    
+
   </body>
   </html>
