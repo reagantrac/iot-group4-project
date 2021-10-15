@@ -38,3 +38,5 @@ $button.addEventListener('click', function() {
   function closeForm() {
     document.getElementById("newroom").style.display="none";
   }
+
+  rmid = document.getElementById("roomID").value;

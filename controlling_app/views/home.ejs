@@ -31,18 +31,14 @@
         <div class="img"></div>
       </div> -->
       <div class="button grid-container" >
-        <a class="btn btn-block" href="/info">Room1</a>
-        <a class="btn btn-block" href="/info">Room2</a>
+        <a class="btn btn-block" href="/info">Main Room</a>
         <!-- <a class="btn btn-block" href="#">Add room</a> -->
         <a class="btn btn-block" onclick="openForm()">add rooms</a>
         <div class="form-popup" id="newroom">
-          <form class="form-container">
-            <h1>name</h1>
-
-            <label for="roomID"><b>roomID</b></label>
-            <input type="text" placeholder="Enter roomID" name="roomID" required>
-
-            <a button type="submit" class="btn" href="/info">Submit</a>
+          <form class="form-container" method="GET" action="/info">            
+            <label for="roomID"><b>Room Name</b></label>
+            <input type="text" id ="roomID" name="roomID" placeholder="Enter roomID" required> 
+            <input type="submit" button type="submit" class="btn">          
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
           </form>
         </div>
@@ -50,13 +46,12 @@
     
       <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/157293/light_on.jpg" width="0" height="0" alt="" /> -->    
     </div>
-    
+
     <script>
-      function openForm() {
+    function openForm() {
       console.log(1)
       document.getElementById("newroom").style.display="block";
-    }
-    
+    }    
     function closeForm() {
       document.getElementById("newroom").style.display="none";
     }
