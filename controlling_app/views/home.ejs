@@ -39,12 +39,14 @@
         <a class="btn btn-block" href="/info">Main Room</a>
 
         <!-- <a class="btn btn-block" href="#">Add room</a> -->
-        <a class="btn btn-block" onclick="openForm()">add rooms</a>
+        <a class="btn btn-block" onclick="openForm()">add room</a>
         <div class="form-popup" id="newroom">
+
           <form class="form-container" method="GET" action="/info">            
             <label for="roomID"><b>Room Name</b></label>
             <input type="text" id ="roomID" name="roomID" placeholder="Enter Room Name" required>            
             <input type="submit" button type="submit" class="btn">          
+
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
           </form>          
         </div>
@@ -61,6 +63,7 @@
       document.getElementById("newroom").style.display="none";
     }
     </script>    
+
 
   </body>
   </html>
