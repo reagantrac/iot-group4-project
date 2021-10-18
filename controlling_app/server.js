@@ -9,6 +9,7 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 // const methodOverride = require('method-override')
+const db = require("./database")
 
 const initializePassport = require('./passport-config')
 initializePassport(
@@ -40,11 +41,6 @@ app.get('/', (req, res) => {
 app.get('/home', ifLoginState("logged_in"), (req, res) => {
   res.render('home.ejs')
 })
-
-// app.get('/home', (req, res) => {
-//   res.render('home.ejs')
-// })
-
 
 app.get('/login', ifLoginState("logged_out"), (req, res) => {
   res.render('login.ejs')
