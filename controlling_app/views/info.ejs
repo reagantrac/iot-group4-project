@@ -22,9 +22,26 @@
   <body>
     <div class="container">
         <div>
-            <h2>
-                RoomID
+            <h2 id="title">
+                Main Room
             </h2>
+            <script type="text/javascript">
+                function getUrlVars() {
+                  var vars = {};
+                  var url = decodeURIComponent(window.location.href.replace(/\+/g, '%20'));
+                  var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, 
+                        function(m,key,value) {
+                    vars[key] = value;
+                  });
+                  return vars;
+                }              
+                var text = getUrlVars()["roomID"];
+                if(text == null){
+                    document.getElementById("title").innerHTML = "Main Room";
+                } else {
+                    document.getElementById("title").innerHTML = text;
+                }                
+              </script>
         </div>
         <div style="color: white;">
             <p style="font-style: italic;">No. of person in the room</p>
@@ -47,9 +64,12 @@
                 <input type="radio" id="auto" name="Status" value="100">
                 <label for="auto">AUTO</label>
             </div><br><br>
+            <script>
+                switchstatus = document.querySelector('input[name="Status"]:checked').value;
+            </script>
         </div>
         <div class="control control--switch">
-            <label for="">Engergy Saving mode</label>
+            <label for="">Energy Saving mode</label>
             <input type="checkbox" class="switch" id="mode-switch" name="mode-switch" />
             <label for="mode-switch"></label>
         </div>
@@ -57,7 +77,11 @@
             <label for="">Brightness</label>
             <input type="range" name="brightness" min="50" max="150" value="100" step="1">
         </div>
-        
-    </div>
+        <br>
+        <form action="/home">
+            <input type="submit" value="Back To Home Page" />
+        </form>                   
+    </div>        
+
   </body>
   </html>
