@@ -21,6 +21,7 @@ const users = []
 
 app.set('view-engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
+app.use(express.json());
 app.use(flash())
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -61,14 +62,14 @@ app.get('/device/:id', (req,res) => {
 })
 
 app.post('/device/:id', (req,res) => {
-    if (light_state in req.body && room_brightness in req.body && people) {
+    if ("light_state" in req.body && "room_brightness" in req.body && "people" in req.body) {
         db.query(`UPDATE dbo.rooms 
-        SET light_state = ${light_state}, room_brightness = ${room_brightness}, number_of_people = ${people}
+        SET light_state = ${req.body.light_state}, room_brightness = ${req.body.room_brightness}, number_of_people = ${req.body.people}
         WHERE id = ${req.params.id}`)
         .catch((err)=> {
             console.log(err)
-        }).finally(() => {
-            // db.query(`SELECT * FROM dbo.rooms WHERE id = ${req.params.id}`).then((result)=>{console.log(result)})
+        }).finally((aa) => {
+            res.json({response: "OK"});
         })
     }
 })
@@ -99,8 +100,6 @@ app.post('/logout', ifLoginState("logged_in"), (req, res) => {
 })
 
 app.post('/light-control/:id', ifLoginState("logged_in"), (req,res) => {
-    // console.log()
-    // db.query(`SELECT * FROM dbo.rooms`).then((result)=>{console.log(result)})
     db.query(`UPDATE dbo.rooms
     SET switch_state = ${req.body.lightSwitch}, light_brightness = ${req.body.brightness}, display_name = '${req.body.lightName}'
     WHERE id = ${req.params.id}`)
