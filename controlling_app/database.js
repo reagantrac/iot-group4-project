@@ -2,55 +2,49 @@ const { Connection, Request } = require("tedious");
 
 // Create connection to database
 const config = {
-  authentication: {
-    options: {
-      userName: "CITS5506",
-      password: "SmartLightIoT2021#"
+    authentication: {
+        options: {
+            userName: "CITS5506",
+            password: "SmartLightIoT2021#"
+        },
+        type: "default"
     },
-    type: "default"
-  },
-  server: "smartlightserver.database.windows.net",
-  options: {
-    database: "smartlight",
-    encrypt: true
-  }
+    server: "smartlightserver.database.windows.net",
+    options: {
+        database: "smartlight",
+        encrypt: true
+    }
 };
 
 const connection = new Connection(config);
+connection.connect()
 
-// Attempt to connect and execute queries if connection goes through
-connection.on("connect", err => {
-  if (err) {
-    console.error(err.message);
-  }
-});
+const query = (queryString) => new Promise((resolve, reject) => {
+    // Read all rows from table
+    result = []
+    const request = new Request(
+        queryString,
+        (err) => {
+            if (err) reject(err)
+            else resolve(result)
+        },
+    );
 
-connection.connect();
-
-function query(queryString) {
-  console.log("Reading rows from the Table...");
-
-  // Read all rows from table
-  const request = new Request(
-    queryString,
-    (err, rowCount) => {
-      if (err) {
-        console.error(err.message);
-      } else {
-        console.log(`${rowCount} row(s) returned`);
-      }
-    }
-  );
-
-  request.on("row", columns => {
-    columns.forEach(column => {
-      console.log("%s\t%s", column.metadata.colName, column.value);
+    request.on("row", columns => {
+        newRow = {}
+        columns.forEach(column => newRow[column.metadata.colName] = column.value);
+        result.push(newRow)
     });
-  });
 
-  connection.execSql(request);
-}
+    connection.on("connect", err => {
+        if (err) console.error(err.message);
+    });
+    connection.on("error", err => {
+        console.log(err)
+        if (err) connection.connect()
+    })
 
-module.exports = {
-    "query": query
- }
+    connection.execSql(request);
+})
+
+module.exports.query = query

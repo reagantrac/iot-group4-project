@@ -8,7 +8,6 @@ const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
-// const methodOverride = require('method-override')
 const db = require("./database")
 
 const initializePassport = require('./passport-config')
@@ -30,16 +29,19 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-// app.use(methodOverride('_method'))
 
 app.use(express.static(__dirname + '/public/'));
 
+//web page routes
 app.get('/', (req, res) => {
     res.render('index.ejs');
 })
 
 app.get('/home', ifLoginState("logged_in"), (req, res) => {
-  res.render('home.ejs')
+    db.query(`SELECT * FROM dbo.rooms`)
+    .then(result => res.render('home.ejs', {data: result}))
+    .catch(err => console.log(err))
+    
 })
 
 app.get('/login', ifLoginState("logged_out"), (req, res) => {
@@ -50,13 +52,14 @@ app.get('/info', ifLoginState("logged_in"), (req, res) => {
   res.render('info.ejs')
 })
 
-
+// check login credentials
 app.post('/login', ifLoginState("logged_out"), passport.authenticate('local', {
   successRedirect: '/home',
   failureRedirect: '/login',
   failureFlash: true
 }))
 
+// register new user
 app.post('/register', ifLoginState("logged_out"), (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, 10)
     users.push({
@@ -68,9 +71,24 @@ app.post('/register', ifLoginState("logged_out"), (req, res) => {
     res.redirect('/login')
 })
 
+// log out user
 app.post('/logout', (req, res) => {
   req.logOut()
   res.redirect('/login')
+})
+
+app.post('/light-mode', (req,res) => {
+    // console.log()
+    // db.query(`SELECT * FROM dbo.rooms`).then((result)=>{console.log(result)})
+    db.query(`UPDATE dbo.rooms
+    SET switch_state = ${req.body.lightSwitch}, light_brightness = ${req.body.brightness}
+    WHERE id = 1`)
+    .then(()=>{
+        res.redirect('/info')
+    }).catch((err)=> {
+        console.log(err)
+    })
+    // WHERE id = ${req.body.id}`)
 })
 
 function ifLoginState(state) {

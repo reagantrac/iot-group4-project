@@ -51,31 +51,28 @@
             <p>Current Light Status: {on/off}</p>
         </div>
         <div style="color: white;" class="row align-items-start">
-            <p>Status:</p>
-            <div class="col">
-                <input type="radio" id="light_on" name="Status" value="30">
-                <label for="light_on">ON</label>
-            </div> 
-            <div class="col">
-                <input type="radio" id="light_off" name="Status" value="60">
-                <label for="light_off">OFF</label> 
-            </div> 
-            <div class="col">
-                <input type="radio" id="auto" name="Status" value="100">
-                <label for="auto">AUTO</label>
-            </div><br><br>
+            <form id="light-control">
+                <legend for="lightSwitch">Status</legend>
+                <fieldset id="lightSwitch">
+                  <label> </label><input type="radio" value="0" name="lightSwitch"> ON </label>
+                  <label> <input type="radio" value="1" name="lightSwitch"> OFF </label>
+                  <label> <input type="radio" value="2" name="lightSwitch"> AUTO </label>
+                </fieldset>
+                <legend for="brightness">Brightness</legend>
+                <input type="range" name="brightness" min="0" max="100" value="50" step="10">
+            </form>
+            <br><br>
             <script>
-                switchstatus = document.querySelector('input[name="Status"]:checked').value;
+                $('#light-control').change(function() {
+                    console.log($(this).serialize())
+                    $.post("/light-mode", $(this).serialize())
+                });
             </script>
         </div>
         <div class="control control--switch">
             <label for="">Energy Saving mode</label>
             <input type="checkbox" class="switch" id="mode-switch" name="mode-switch" />
             <label for="mode-switch"></label>
-        </div>
-        <div class="control control--range">
-            <label for="">Brightness</label>
-            <input type="range" name="brightness" min="50" max="150" value="100" step="1">
         </div>
         <br>
         <form action="/home">
