@@ -23,7 +23,7 @@
     <div class="container">
         <div>
             <h2 id="title">
-                Room1
+                Main Room
             </h2>
             <script type="text/javascript">
                 function getUrlVars() {
@@ -65,9 +65,12 @@
                 <input type="radio" id="auto" name="Status" value="100">
                 <label for="auto">AUTO</label>
             </div><br><br>
+            <script>
+                switchstatus = document.querySelector('input[name="Status"]:checked').value;
+            </script>
         </div>
         <div class="control control--switch">
-            <label for="">Engergy Saving mode</label>
+            <label for="">Energy Saving mode</label>
             <input type="checkbox" class="switch" id="mode-switch" name="mode-switch" />
             <label for="mode-switch"></label>
         </div>
@@ -75,7 +78,11 @@
             <label for="">Brightness</label>
             <input type="range" name="brightness" min="50" max="150" value="100" step="1">
         </div>
-        
-    </div>
+        <br>
+        <form action="/home">
+            <input type="submit" value="Back To Home Page" />
+        </form>                   
+    </div>        
+
   </body>
   </html>
