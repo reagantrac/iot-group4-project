@@ -19,6 +19,15 @@ const config = {
 const connection = new Connection(config);
 connection.connect()
 
+connection.on("connect", err => {
+    if (err) console.error(err.message);
+});
+
+connection.on("error", err => {
+    console.log(err)
+    if (err) connection.connect()
+})
+
 const query = (queryString) => new Promise((resolve, reject) => {
     // Read all rows from table
     result = []
@@ -35,14 +44,6 @@ const query = (queryString) => new Promise((resolve, reject) => {
         columns.forEach(column => newRow[column.metadata.colName] = column.value);
         result.push(newRow)
     });
-
-    connection.on("connect", err => {
-        if (err) console.error(err.message);
-    });
-    connection.on("error", err => {
-        console.log(err)
-        if (err) connection.connect()
-    })
 
     connection.execSql(request);
 })

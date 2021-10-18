@@ -2,10 +2,6 @@ html {
     font-size: 15px;
   }
   
-  body {
-    background: #212223;
-  }
-  
   /* STYLE for input range */
   input[type=range] {
     -webkit-appearance: none;
@@ -127,10 +123,6 @@ html {
   .numeral {
     font-family: 'Nunito', 'Raleway', sans-serif;
   }
-  h1 { color: white; font-family: 'Helvetica Neue', sans-serif; font-size: 100px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
-  h2 { color: #fff; font-family: 'Open Sans', sans-serif; font-size: 30px; font-weight: 300; line-height: 32px; margin: 36px 0 36px; text-align: center; }
-
-
 
 /* The popup form - hidden by default */
 .form-popup {

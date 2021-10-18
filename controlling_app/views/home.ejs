@@ -19,27 +19,23 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   
-  <body>
-    <!-- <div class="button grid-container" >
-      <a class="btn btn-block" href="/info.ejs">Room1</a>
-      <a class="btn btn-block" href="#">Room2</a>
-      <a class="btn btn-block" href="#">Add room</a>
-    </div> -->       
+  <body>   
     <div class="container">
-      <!-- <div class="target">
-        <div class="img__cover"></div>
-        <div class="img"></div>
-      </div> -->  
-      <div>
-        <h2 style="margin-top:100px" id="title">
-          Home Page
-        </h2>
-      </div>        
-      <div class="button grid-container" >
-        <a class="btn btn-block" href="/info">Main Room</a>
-
-        <!-- <a class="btn btn-block" href="#">Add room</a> -->
-        <a class="btn btn-block" onclick="openForm()">add room</a>
+        <h1 class="display-1" id="title">
+            Device List
+        </h1>
+       
+      <div class="grid-container" >
+        <% for (var i = 0; i < data.length; i++) { %>
+            <div class="row">
+                <h2 class="display-8 col-sm-6"><%= data[i].display_name %></h2>
+                <a class="col-sm-6 btn btn-md btn-block btn-secondary" href="/info/<%= data[i].id %>">MORE</a>
+                <p class="lead col-sm-6">Status: <%= data[i].light_state ? `ON` : `OFF` %></p>
+                <p class="lead col-sm-6">Occupants: <%= data[i].number_of_people %></p>
+            </div>
+        <% } %>    
+        
+        <a class="btn btn-lg btn-block btn-primary" onclick="openForm()">add room</a>
         <div class="form-popup" id="newroom">
 
           <form class="form-container" method="GET" action="/info">            

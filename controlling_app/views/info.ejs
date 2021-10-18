@@ -21,63 +21,44 @@
   
   <body>
     <div class="container">
-        <div>
-            <h2 id="title">
-                Main Room
-            </h2>
-            <script type="text/javascript">
-                function getUrlVars() {
-                  var vars = {};
-                  var url = decodeURIComponent(window.location.href.replace(/\+/g, '%20'));
-                  var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, 
-                        function(m,key,value) {
-                    vars[key] = value;
-                  });
-                  return vars;
-                }              
-                var text = getUrlVars()["roomID"];
-                if(text == null){
-                    document.getElementById("title").innerHTML = "Main Room";
-                } else {
-                    document.getElementById("title").innerHTML = text;
-                }                
-              </script>
-        </div>
-        <div style="color: white;">
-            <p style="font-style: italic;">No. of person in the room</p>
-            <h1 class="numeral">3</h1>
-        </div>
-        <div style="color: white;" class="row align-items-start">
-            <p>Current Light Status: {on/off}</p>
-        </div>
-        <div style="color: white;" class="row align-items-start">
-            <form id="light-control">
-                <legend for="lightSwitch">Status</legend>
-                <fieldset id="lightSwitch">
-                  <label> </label><input type="radio" value="0" name="lightSwitch"> ON </label>
-                  <label> <input type="radio" value="1" name="lightSwitch"> OFF </label>
-                  <label> <input type="radio" value="2" name="lightSwitch"> AUTO </label>
+        <h2 id="title"><%= data.display_name %></h2>
+        
+        <div class="form-wrapper">
+            <form class="row form" id="light-control">
+                <legend class="col-sm-6" for="lightName">Display Name</legend>
+                <input class="col-sm-6" type="text" name="lightName" value="<%= data.display_name %>">
+                <legend class="col-sm-6" for="lightStatus">Current Light Status</legend>
+                <input class="col-sm-6" type="text" name="lightStatus" value=<%= data.light_state ? `ON` : `OFF` %> disabled>
+                <legend class="col-sm-6" for="occupants">Room Occupants</legend>
+                <input class="col-sm-6" type="text" name="occupants" value=<%= data.number_of_people %> disabled>
+                <legend class="col-sm-6" for="roomBrightness">Ambient Light Level</legend>
+                <input class="col-sm-6" type="text" name="roomBrightness" value="<%= data.room_brightness %>" disabled>
+                <legend class="col-sm-6" for="lightSwitch">Light Mode</legend>
+                <fieldset class="col-sm-6 d-flex justify-content-between" id="lightSwitch">
+                    <label> <input type="radio" value="0" name="lightSwitch" <%= data.switch_state==0 ? `checked`:`` %>> ON </label>
+                    <label> <input type="radio" value="1" name="lightSwitch" <%= data.switch_state==1 ? `checked`:`` %>> OFF </label>
+                    <label> <input type="radio" value="2" name="lightSwitch" <%= data.switch_state==2 ? `checked`:`` %>> AUTO </label>
                 </fieldset>
-                <legend for="brightness">Brightness</legend>
-                <input type="range" name="brightness" min="0" max="100" value="50" step="10">
+                <legend class="col-sm-6" for="brightness">Brightness</legend>
+                <input class="col-sm-6" type="range" name="brightness" min="0" max="100" value=<%= data.light_brightness %> step="5">
             </form>
-            <br><br>
-            <script>
-                $('#light-control').change(function() {
-                    console.log($(this).serialize())
-                    $.post("/light-mode", $(this).serialize())
+        </div>
+
+        <script>
+            $('#light-control').change(function() {
+                // $.post("/light-control/<%= data.id %>", $(this).serialize())
+                $.ajax({
+                    type: "POST",
+                    url: "/light-control/<%= data.id %>",
+                    data: $(this).serialize(),
+                    success: () => window.location.reload()
                 });
-            </script>
-        </div>
-        <div class="control control--switch">
-            <label for="">Energy Saving mode</label>
-            <input type="checkbox" class="switch" id="mode-switch" name="mode-switch" />
-            <label for="mode-switch"></label>
-        </div>
-        <br>
+            });
+        </script>
+
         <form action="/home">
-            <input type="submit" value="Back To Home Page" />
-        </form>                   
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Return to Home</button>
+        </form>            
     </div>        
 
   </body>
