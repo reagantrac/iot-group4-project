@@ -22,7 +22,7 @@ jobs:
           node-version: '14.x'
       
       - name: move files
-        run: git sparse-checkout set example && mv example/{*,.*} . || true
+        run: git sparse-checkout set controlling_app && mv controlling_app/{*,.*} . || true
       
       - name: npm install, build, and test
         run: |
