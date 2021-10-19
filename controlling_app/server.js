@@ -9,6 +9,7 @@ const passport = require('passport')
 const flash = require('express-flash')
 const session = require('express-session')
 const db = require("./database")
+const crypto = require("crypto")
 
 const initializePassport = require('./passport-config')
 initializePassport(
@@ -66,12 +67,21 @@ app.post('/device/:id', (req,res) => {
         db.query(`UPDATE dbo.rooms 
         SET light_state = ${req.body.light_state}, room_brightness = ${req.body.room_brightness}, number_of_people = ${req.body.people}
         WHERE id = ${req.params.id}`)
-        .catch((err)=> {
-            console.log(err)
-        }).finally((aa) => {
+        .catch(err=> console.log(err))
+        .finally(() => {
             res.json({response: "OK"});
         })
     }
+})
+
+// rooms
+
+app.post('/new', (req,res) => {
+    id = parseInt(crypto.randomBytes(2).toString('hex'), 16)
+    db.query(`INSERT INTO dbo.rooms (id, display_name, light_state, switch_state, room_brightness, light_brightness, number_of_people)
+    VALUES ('${id}', '${req.body.roomName}', 0, 0, 0, 100, 0)`)
+    .then(() => res.redirect('/home'))
+    .catch(err => console.log(err))
 })
 
 // check login credentials
@@ -84,6 +94,10 @@ app.post('/login', ifLoginState("logged_out"), passport.authenticate('local', {
 // register new user
 app.post('/register', ifLoginState("logged_out"), (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+    // db.query(`INSERT INTO dbo.users
+    // VALUES `)
+    // .then(() => res.redirect('/login'))
+    // .catch(err => console.log(err))
     users.push({
       id: Date.now().toString(),
       name: req.body.name,

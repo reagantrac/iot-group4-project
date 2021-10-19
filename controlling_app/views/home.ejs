@@ -38,9 +38,9 @@
         <a class="btn btn-lg btn-block btn-primary" onclick="openForm()">add room</a>
         <div class="form-popup" id="newroom">
 
-          <form class="form-container" method="GET" action="/info">            
-            <label for="roomID"><b>Room Name</b></label>
-            <input type="text" id ="roomID" name="roomID" placeholder="Enter Room Name" required>            
+          <form class="form-container" method="POST" action="/new">            
+            <label for="roomName"><b>Room Name</b></label>
+            <input type="text" id ="roomName" name="roomName" placeholder="Enter Room Name" required>            
             <input type="submit" button type="submit" class="btn">          
 
             <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
