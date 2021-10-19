@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: '14.x'
 
+      - name: change working directory
+        run: cd /controlling_app
+
       - name: npm install, build, and test
         run: |
           npm install
