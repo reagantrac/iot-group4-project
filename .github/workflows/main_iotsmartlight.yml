@@ -20,12 +20,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '14.x'
-
+      
+      - name: move files
+        run: git sparse-checkout set example && mv example/{*,.*} . || true
+      
       - name: npm install, build, and test
         run: |
-          npm install ./controlling_app
-          npm run build ./controlling_app --if-present
-          npm run test ./controlling_app --if-present
+          npm install
+          npm run build --if-present
+          npm run test --if-present
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
