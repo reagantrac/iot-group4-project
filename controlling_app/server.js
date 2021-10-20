@@ -7,7 +7,7 @@ const app = express()
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 const flash = require('express-flash')
-const session = require('express-session')
+const session = require('cookie-session')
 const db = require("./database")
 const crypto = require("crypto")
 
@@ -140,4 +140,4 @@ function ifLoginState(state) {
     }
 }
 
-app.listen(443)
+app.listen(80)
