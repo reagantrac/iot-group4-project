@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/275e8d65-1d40-488a-a892-7873c0cecb9e/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/iotsmartlightapp",
+    "appService.deploySubpath": "controlling_app"
+}
