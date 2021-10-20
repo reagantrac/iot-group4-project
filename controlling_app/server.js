@@ -10,6 +10,7 @@ const flash = require('express-flash')
 const session = require('cookie-session')
 const db = require("./database")
 const crypto = require("crypto")
+const cookieParser = require('cookie-parser')
 
 const initializePassport = require('./passport-config')
 initializePassport(
@@ -23,6 +24,7 @@ const users = []
 app.set('view-engine', 'ejs')
 app.set('trust proxy', 1)
 
+app.use(cookieParser(process.env.SESSION_SECRET))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(flash())
@@ -87,7 +89,7 @@ app.post('/new', (req,res) => {
 
 // check login credentials
 app.post('/login', passport.authenticate('local', {
-  successRedirect: '/home',
+    successRedirect: '/home',
   failureRedirect: '/login',
   failureFlash: true
 }))
@@ -130,8 +132,9 @@ app.post('/light-control/:id', ifLoginState("logged_in"), (req,res) => {
 function ifLoginState(state) {
     return function(req, res, next) {
         if (state === "logged_in") {
-            if (req.isAuthenticated()) return next();
-            else return res.redirect('/login')
+            // if (req.isAuthenticated()) return next();
+            // else return res.redirect('/login')
+            return next()
         }
         else if (state === "logged_out") {
             if (!req.isAuthenticated()) return next();
