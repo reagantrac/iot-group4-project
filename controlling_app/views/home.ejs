@@ -29,7 +29,11 @@
         <% for (var i = 0; i < data.length; i++) { %>
             <div class="row">
                 <h2 class="display-8 col-sm-6"><%= data[i].display_name %></h2>
-                <a class="col-sm-6 btn btn-md btn-block btn-secondary" href="/info/<%= data[i].id %>">MORE</a>
+                <% if (data[i].id == 1 || data[i].id == 2) { %>
+                    <a class="col-sm-6 btn btn-md btn-block btn-secondary" href="http://smartlight.host/dream04.php">MORE</a>
+                <% } else { %>
+                    <a class="col-sm-6 btn btn-md btn-block btn-secondary" href="/info/<%= data[i].id %>">MORE</a>
+                <% } %>
                 <p class="lead col-sm-6">Status: <%= data[i].light_state ? `ON` : `OFF` %></p>
                 <p class="lead col-sm-6">Occupants: <%= data[i].number_of_people %></p>
             </div>
