@@ -21,13 +21,14 @@ initializePassport(
 const users = []
 
 app.set('view-engine', 'ejs')
+app.set('trust proxy', 1)
+
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 app.use(flash())
 app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
+  name: 'session',
+  keys: [process.env.SESSION_SECRET],
 }))
 app.use(passport.initialize())
 app.use(passport.session())
