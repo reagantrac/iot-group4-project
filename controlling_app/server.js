@@ -86,7 +86,7 @@ app.post('/new', (req,res) => {
 })
 
 // check login credentials
-app.post('/login', ifLoginState("logged_out"), passport.authenticate('local', {
+app.post('/login', passport.authenticate('local', {
   successRedirect: '/home',
   failureRedirect: '/login',
   failureFlash: true
