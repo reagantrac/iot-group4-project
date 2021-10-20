@@ -2,8 +2,9 @@
   "name": "current-project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "devStart": "nodemon -e js,css,ejs server.js"
   },
   "author": "",

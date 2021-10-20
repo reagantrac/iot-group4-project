@@ -23,11 +23,6 @@ connection.on("connect", err => {
     if (err) console.error(err.message);
 });
 
-connection.on("error", err => {
-    console.log(err)
-    if (err) connection.connect()
-})
-
 const query = (queryString) => new Promise((resolve, reject) => {
     // Read all rows from table
     result = []
